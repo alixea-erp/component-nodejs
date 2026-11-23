@@ -1,0 +1,20 @@
+alixeaVersion: v1.0
+type: component
+name: Node.js
+description: Node.js component for Alixea
+
+supportsAdditionalHosts: { serviceName: 'app' }
+
+hosts:
+  - name: Node.js
+    identifier: app
+    port: 3000
+
+images:
+  - identifier: app
+    prebuildImage: public.ecr.aws/p8t2q7f4/alixea/component-nodejs:[tag]
+
+# Staging and production build the deployment's commit on its own machine, in the image above, with the deployment's
+# environment. Development runs the dev server on the working copy instead
+build:
+  command: alixea-pm install && NODE_ENV=production alixea-pm run build
